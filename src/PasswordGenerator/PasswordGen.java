@@ -5,10 +5,10 @@ import java.util.Scanner;
 
 
 /** Strong password Characteristics
- * At least 8 characters—the more characters, the better
+ * the more characters, the better
  * A mixture of both uppercase and lowercase letters
  * A mixture of letters and numbers
- * Inclusion of at least one special character, e.g., ! @ # ? ]
+ * Inclusion of special characters, e.g., ! @ # ? ]
  *
  */
 
@@ -17,9 +17,9 @@ public class PasswordGen {
         PasswordGen passwordGen = new PasswordGen();
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
-        StringBuilder password = new StringBuilder("");
+        StringBuilder password = new StringBuilder();
 
-        System.out.println("----Password Generator----\n\nHit Enter for a new Password or Type Exit to exit: ");
+        System.out.println("----Password Generator----\nHit Enter for a new Password or Type Exit to exit: ");
         while (true) {
             password.delete(0,password.length());
             String exit = scanner.nextLine();
@@ -30,12 +30,14 @@ public class PasswordGen {
             }
             else {
                 //give a random password
-                for(int i = 0; i < 14; i++) {
+                for(int i = 0; i < 16; i++) {
                     //get what char to add
                     int typeOfChar = random.nextInt(3);
 
                     //get pos of char to add
                     int posOfChar = random.nextInt();
+
+                    //make sure generated number is positive
                     while (posOfChar < 0) {
                         posOfChar = random.nextInt();
                     }
@@ -53,19 +55,22 @@ public class PasswordGen {
 
     public char getUpper(int i) {
         String upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        int position = i % 25;
+        int length = upperCase.length() - 1;
+        int position = i % length;
         return upperCase.charAt(position);
     }
 
     public char getLower(int i) {
         String lowerCase = "abcdefghijklmnopqrstuvwxyz";
-        int position = i % 25;
+        int length = lowerCase.length() - 1;
+        int position = i % length;
         return lowerCase.charAt(position);
     }
 
     public char getSpecial(int i) {
-        String specialChar = "!@#$%^&*?+=";
-        int position = i % 10;
+        String specialChar = "!@#$%^&*?+={}[]()-_.`~";
+        int length = specialChar.length() - 1;
+        int position = i % length;
 
         return specialChar.charAt(position);
     }
